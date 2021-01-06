@@ -70,7 +70,7 @@ public class ReviewDao implements AbstractDao<Review> {
 
     @Override
     public void delete(Integer id) throws SQLException {
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(UPDATE_QUERY)) {
+        try (PreparedStatement statement = Connector.getConnection().prepareStatement(DELETE_QUERY)) {
             statement.setInt(1, id);
             System.out.println(statement);
             statement.executeUpdate();

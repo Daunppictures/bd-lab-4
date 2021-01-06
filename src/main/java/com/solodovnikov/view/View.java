@@ -28,7 +28,7 @@ public class View {
 
     public final void show() throws SQLException {
         String keyMenu = "";
-        while (!keyMenu.equals("Q")) {
+        while (!keyMenu.equals("E")) {
             displayMenu();
             System.out.println("Please, select menu point.");
             keyMenu = input.nextLine().toUpperCase();
@@ -38,27 +38,30 @@ public class View {
 
             }
         }
+        System.out.println("Exit");
     }
 
     private void displayMenu() {
-        System.out.println(" ------------------------------------------ ");
-        System.out.println("|                     |                    |");
-        System.out.println("|       TABLES        |       METHODS      |");
-        System.out.println("|                     |                    |");
-        System.out.println(" ------------------------------------------ ");
-        System.out.println("|  1 - Booking        |  1 - get all       |");
-        System.out.println("|  2 - Country        |  2 - get by id     |");
-        System.out.println("|  3 - Email          |  3 - create        |");
-        System.out.println("|  4 - Guest          |  4 - update        |");
-        System.out.println("|  5 - HotelChain     |  5 - delete        |");
-        System.out.println("|  6 - Hotel          |                    |");
-        System.out.println("|  7 - Passport       |                    |");
-        System.out.println("|  8 - Phone          |                    |");
-        System.out.println("|  9 - Review         |                    |");
-        System.out.println("|  10 - Room          |                    |");
-        System.out.println(" ------------------------------------------ ");
-        System.out.println("|                  Q - exit                |");
-        System.out.println(" ------------------------------------------ ");
+        System.out.println(" =========================================================== ");
+        System.out.println("||                           MENU                          ||");
+        System.out.println(" =========================================================== ");
+        System.out.println("||                            ||                           ||");
+        System.out.println("||            TABLES          ||           METHODS         ||");
+        System.out.println("||                            ||                           ||");
+        System.out.println(" =========================================================== ");
+        System.out.println("||     1  - Booking           ||       1 -  get all        ||");
+        System.out.println("||     2  - Country           ||       2 -  get by id      ||");
+        System.out.println("||     3  - Email             ||       3 -  create         ||");
+        System.out.println("||     4  - Guest             ||       4 -  update         ||");
+        System.out.println("||     5  - HotelChain        ||       5 -  delete         ||");
+        System.out.println("||     6  - Hotel             ||                           ||");
+        System.out.println("||     7  - Passport          ||                           ||");
+        System.out.println("||     8  - Phone             ||                           ||");
+        System.out.println("||     9  - Review            ||                           ||");
+        System.out.println("||     10 - Room              ||                           ||");
+        System.out.println(" =========================================================== ");
+        System.out.println("||                         E - exit                        ||");
+        System.out.println(" =========================================================== ");
     }
 
 
