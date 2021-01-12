@@ -1,45 +1,28 @@
 package com.solodovnikov.model.dao;
 
-import com.solodovnikov.Connector;
 import com.solodovnikov.model.entity.Room;
+import com.solodovnikov.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDao implements AbstractDao<Room> {
-    public static final String TABLE = "solodovnikov.room";
 
-    private static final String GET_ALL_QUERY = "SELECT * FROM " + TABLE + ";";
-
-    private static final String GET_ONE_QUERY = "SELECT * FROM " + TABLE + " WHERE room_id = ?;";
-
-    private static final String CREATE_QUERY = "INSERT INTO " + TABLE + " (max_persons, price_per_night, status, hotel_id) VALUES (?, ?, ?, ?);";
-
-    private static final String UPDATE_QUERY = "UPDATE " + TABLE + " SET max_persons = ?, price_per_night = ?, status = ?, hotel_id = ? WHERE room_id = ?;";
-
-    private static final String DELETE_QUERY = "DELETE FROM " + TABLE + " WHERE room_id = ?;";
+    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     @Override
     public List<Room> findAll() throws SQLException {
         List<Room> rooms = new ArrayList<>();
 
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(GET_ALL_QUERY)) {
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
+        try (Session session = sessionFactory.getCurrentSession()) {
 
-            while (resultSet.next()) {
-                Room room = new Room(
-                        resultSet.getInt("room_id"),
-                        resultSet.getInt("max_persons"),
-                        resultSet.getInt("price_per_night"),
-                        resultSet.getInt("status"),
-                        resultSet.getInt("hotel_id")
-                );
-                rooms.add(room);
-            }
+            session.beginTransaction();
+            rooms = session.createQuery("from Room").getResultList();
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,20 +33,12 @@ public class RoomDao implements AbstractDao<Room> {
     public Room find(Integer id) throws SQLException {
         Room room = null;
 
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(GET_ONE_QUERY)) {
-            statement.setInt(1, id);
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
+        try (Session session = sessionFactory.getCurrentSession()) {
 
-            while (resultSet.next()) {
-                room = new Room(
-                        resultSet.getInt("room_id"),
-                        resultSet.getInt("max_persons"),
-                        resultSet.getInt("price_per_night"),
-                        resultSet.getInt("status"),
-                        resultSet.getInt("hotel_id")
-                );
-            }
+            session.beginTransaction();
+            room = session.get(Room.class, id);
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,41 +47,41 @@ public class RoomDao implements AbstractDao<Room> {
 
     @Override
     public void delete(Integer id) throws SQLException {
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(DELETE_QUERY)) {
-            statement.setInt(1, id);
-            System.out.println(statement);
-            statement.executeUpdate();
+        try (Session session = sessionFactory.getCurrentSession()) {
+
+            session.beginTransaction();
+            Room room = session.get(Room.class, id);
+            if (room != null) {
+                session.delete(room);
+            }
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void update(Integer id, Room object) throws SQLException {
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(UPDATE_QUERY)) {
-            statement.setInt(1, object.getMaxPersons());
-            statement.setInt(2, object.getPricePerNight());
-            statement.setInt(3, object.getStatus());
-            statement.setInt(4, object.getHotelId());
-            statement.setInt(5, id);
-            statement.executeUpdate();
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
+    public void update(Integer id, Room room) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+
+            session.beginTransaction();
+            session.save(room);
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void create(Room object) throws SQLException {
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(CREATE_QUERY)) {
-            statement.setInt(1, object.getMaxPersons());
-            statement.setInt(2, object.getPricePerNight());
-            statement.setInt(3, object.getStatus());
-            statement.setInt(4, object.getHotelId());
-            statement.executeUpdate();
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
+    public void create(Room room) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+
+            session.beginTransaction();
+            session.save(room);
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

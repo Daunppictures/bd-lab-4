@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/solodovnikov_new_2?serverTimezone=UTC</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">Idonotnubas2001</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+
+        <mapping class="com.solodovnikov.model.entity.Country"/>
+        <mapping class="com.solodovnikov.model.entity.Guest"/>
+        <mapping class="com.solodovnikov.model.entity.Hotel"/>
+        <mapping class="com.solodovnikov.model.entity.Phone"/>
+        <mapping class="com.solodovnikov.model.entity.Review"/>
+        <mapping class="com.solodovnikov.model.entity.Room"/>
+
+    </session-factory>
+</hibernate-configuration>

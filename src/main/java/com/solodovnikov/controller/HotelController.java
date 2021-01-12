@@ -25,13 +25,13 @@ public class HotelController implements AbstractController<Hotel>{
     }
 
     @Override
-    public void create(Hotel entity) throws SQLException {
-        dao.create(entity);
+    public void create(Hotel hotel) throws SQLException {
+        dao.create(hotel);
     }
 
     @Override
-    public void update(Integer id, Hotel entity) throws SQLException {
-        dao.update(id, entity);
+    public void update(Integer id, Hotel hotel) throws SQLException {
+        dao.update(id, hotel);
     }
 
     @Override

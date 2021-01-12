@@ -1,45 +1,28 @@
 package com.solodovnikov.model.dao;
 
-import com.solodovnikov.Connector;
 import com.solodovnikov.model.entity.Review;
-import com.solodovnikov.model.entity.Room;
+import com.solodovnikov.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewDao implements AbstractDao<Review> {
-    public static final String TABLE = "solodovnikov.review";
 
-    private static final String GET_ALL_QUERY = "SELECT * FROM " + TABLE + ";";
-
-    private static final String GET_ONE_QUERY = "SELECT * FROM " + TABLE + " WHERE review_id = ?;";
-
-    private static final String CREATE_QUERY = "INSERT INTO " + TABLE + " (text, date, hotel_id) VALUES (?, ?, ?);";
-
-    private static final String UPDATE_QUERY = "UPDATE " + TABLE + " SET text = ?, date = ?, hotel_id = ? WHERE review_id = ?;";
-
-    private static final String DELETE_QUERY = "DELETE FROM " + TABLE + " WHERE review_id = ?;";
+    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     @Override
     public List<Review> findAll() throws SQLException {
         List<Review> reviews = new ArrayList<>();
 
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(GET_ALL_QUERY)) {
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
+        try (Session session = sessionFactory.getCurrentSession()) {
 
-            while (resultSet.next()) {
-                Review review = new Review(
-                        resultSet.getInt("review_id"),
-                        resultSet.getString("text"),
-                        resultSet.getString("date"),
-                        resultSet.getInt("hotel_id")
-                );
-                reviews.add(review);
-            }
+            session.beginTransaction();
+            reviews = session.createQuery("from Review").getResultList();
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,19 +32,10 @@ public class ReviewDao implements AbstractDao<Review> {
     @Override
     public Review find(Integer id) throws SQLException {
         Review review = null;
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(GET_ONE_QUERY)) {
-            statement.setInt(1, id);
-            System.out.println(statement);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                review = new Review(
-                        resultSet.getInt("review_id"),
-                        resultSet.getString("text"),
-                        resultSet.getString("date"),
-                        resultSet.getInt("hotel_id")
-                );
-            }
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            review = session.get(Review.class, id);
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,37 +44,41 @@ public class ReviewDao implements AbstractDao<Review> {
 
     @Override
     public void delete(Integer id) throws SQLException {
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(DELETE_QUERY)) {
-            statement.setInt(1, id);
-            System.out.println(statement);
-            statement.executeUpdate();
+        try (Session session = sessionFactory.getCurrentSession()) {
+
+            session.beginTransaction();
+            Review review = session.get(Review.class, id);
+            if (review != null) {
+                session.delete(review);
+            }
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void update(Integer id, Review object) throws SQLException {
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(UPDATE_QUERY)) {
-            statement.setString(1, object.getText());
-            statement.setString(2, object.getDate());
-            statement.setInt(3, object.getHotelId());
-            statement.setInt(4, id);
-            statement.executeUpdate();
-            System.out.println(statement);
+    public void update(Integer id, Review review) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+
+            session.beginTransaction();
+            session.save(review);
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void create(Review object) throws SQLException {
-        try (PreparedStatement statement = Connector.getConnection().prepareStatement(CREATE_QUERY)) {
-            statement.setString(1, object.getText());
-            statement.setString(2, object.getDate());
-            statement.setInt(3, object.getHotelId());
-            statement.executeUpdate();
-            System.out.println(statement);
+    public void create(Review review) throws SQLException {
+        try (Session session = sessionFactory.getCurrentSession()) {
+
+            session.beginTransaction();
+            session.save(review);
+            session.getTransaction().commit();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

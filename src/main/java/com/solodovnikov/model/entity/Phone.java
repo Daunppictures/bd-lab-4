@@ -1,24 +1,29 @@
 package com.solodovnikov.model.entity;
+import javax.persistence.*;
 
+@Table(name = "phone")
+@Entity
 public class Phone {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "number")
     private String number;
 
-    private Integer guestId;
 
     public Phone() {
 
     }
 
-    public Phone(String number, Integer guestId) {
-        this(-1, number, guestId);
+    public Phone(String number) {
+        this(-1, number);
     }
 
-    public Phone(Integer id, String number, Integer guestId) {
+    public Phone(Integer id, String number) {
         this.id = id;
         this.number = number;
-        this.guestId = guestId;
     }
 
     public Integer getId() {
@@ -37,16 +42,9 @@ public class Phone {
         this.number = number;
     }
 
-    public Integer getGuestId() {
-        return guestId;
-    }
-
-    public void setGuestId(Integer guestId) {
-        this.guestId = guestId;
-    }
-
     @Override
     public String toString() {
-        return "\n======================\nid=" + id + ",\nnumber=" + number + ",\nguestId=" + guestId;
+        return  "\n==========================" +
+                "\nid=" + id + "\nnumber=" + number;
     }
 }

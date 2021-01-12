@@ -1,12 +1,21 @@
 package com.solodovnikov.model.entity;
+import javax.persistence.*;
 
+@Table(name = "guest")
+@Entity
 public class Guest {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "state_of_account")
     private Integer stateOfAccount;
 
     public Guest() {
@@ -58,6 +67,7 @@ public class Guest {
 
     @Override
     public String toString() {
-        return "\n======================\nid=" + id + ",\nfirstName=" + firstName + ",\nlastName=" + lastName + ",\nstateOfAccount=" + stateOfAccount;
+        return  "\n==========================" +
+                "\nid=" + id + "\nfirstName=" + firstName + "\nlastName=" + lastName + "\nstateOfAccount=" + stateOfAccount;
     }
 }

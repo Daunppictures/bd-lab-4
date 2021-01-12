@@ -12,13 +12,9 @@ import java.util.Scanner;
 
 public class View {
 
-    private final BookingController bookingController = new BookingController();
     private final CountryController countryController = new CountryController();
-    private final EmailController emailController = new EmailController();
     private final GuestController guestController = new GuestController();
     private final HotelController hotelController = new HotelController();
-    private final HotelChainController hotelChainController = new HotelChainController();
-    private final PassportController passportController = new PassportController();
     private final PhoneController phoneController = new PhoneController();
     private final ReviewController reviewController = new ReviewController();
     private final RoomController roomController = new RoomController();
@@ -49,16 +45,12 @@ public class View {
         System.out.println("||            TABLES          ||           METHODS         ||");
         System.out.println("||                            ||                           ||");
         System.out.println(" =========================================================== ");
-        System.out.println("||     1  - Booking           ||       1 -  get all        ||");
-        System.out.println("||     2  - Country           ||       2 -  get by id      ||");
-        System.out.println("||     3  - Email             ||       3 -  create         ||");
-        System.out.println("||     4  - Guest             ||       4 -  update         ||");
-        System.out.println("||     5  - HotelChain        ||       5 -  delete         ||");
-        System.out.println("||     6  - Hotel             ||                           ||");
-        System.out.println("||     7  - Passport          ||                           ||");
-        System.out.println("||     8  - Phone             ||                           ||");
-        System.out.println("||     9  - Review            ||                           ||");
-        System.out.println("||     10 - Room              ||                           ||");
+        System.out.println("||     1  - Country           ||       1 -  get all        ||");
+        System.out.println("||     2  - Guest             ||       2 -  get by id      ||");
+        System.out.println("||     3  - Hotel             ||       3 -  create         ||");
+        System.out.println("||     4  - Phone             ||       4 -  update         ||");
+        System.out.println("||     5  - Review            ||       5 -  delete         ||");
+        System.out.println("||     6  - Room              ||                           ||");
         System.out.println(" =========================================================== ");
         System.out.println("||                         E - exit                        ||");
         System.out.println(" =========================================================== ");
@@ -68,125 +60,52 @@ public class View {
     public View() {
         menu = new LinkedHashMap<>();
 
-        // booking
-        menu.put("11", this::findAllBooking);
-        menu.put("12", this::findBooking);
-        menu.put("13", this::createBooking);
-        menu.put("14", this::updateBooking);
-        menu.put("15", this::deleteBooking);
-
         // country
-        menu.put("21", this::findAllCountry);
-        menu.put("22", this::findCountry);
-        menu.put("23", this::createCountry);
-        menu.put("24", this::updateCountry);
-        menu.put("25", this::deleteCountry);
+        menu.put("11", this::findAllCountry);
+        menu.put("12", this::findCountry);
+        menu.put("13", this::createCountry);
+        menu.put("14", this::updateCountry);
+        menu.put("15", this::deleteCountry);
 
-        // email
-        menu.put("31", this::findAllEmail);
-        menu.put("32", this::findEmail);
-        menu.put("33", this::createEmail);
-        menu.put("34", this::updateEmail);
-        menu.put("35", this::deleteEmail);
 
         // guest
-        menu.put("41", this::findAllGuest);
-        menu.put("42", this::findGuest);
-        menu.put("43", this::createGuest);
-        menu.put("44", this::updateGuest);
-        menu.put("45", this::deleteGuest);
+        menu.put("21", this::findAllGuest);
+        menu.put("22", this::findGuest);
+        menu.put("23", this::createGuest);
+        menu.put("24", this::updateGuest);
+        menu.put("25", this::deleteGuest);
 
         // hotel
-        menu.put("51", this::findAllHotel);
-        menu.put("52", this::findHotel);
-        menu.put("53", this::createHotel);
-        menu.put("54", this::updateHotel);
-        menu.put("55", this::deleteHotel);
-
-        // hotelChain
-        menu.put("61", this::findAllHotelChain);
-        menu.put("62", this::findHotelChain);
-        menu.put("63", this::createHotelChain);
-        menu.put("64", this::updateHotelChain);
-        menu.put("65", this::deleteHotelChain);
-
-        // passport
-        menu.put("71", this::findAllPassport);
-        menu.put("72", this::findPassport);
-        menu.put("73", this::createPassport);
-        menu.put("74", this::updatePassport);
-        menu.put("75", this::deletePassport);
+        menu.put("31", this::findAllHotel);
+        menu.put("32", this::findHotel);
+        menu.put("33", this::createHotel);
+        menu.put("34", this::updateHotel);
+        menu.put("35", this::deleteHotel);
 
         // phone
-        menu.put("81", this::findAllPhone);
-        menu.put("82", this::findPhone);
-        menu.put("83", this::createPhone);
-        menu.put("84", this::updatePhone);
-        menu.put("85", this::deletePhone);
+        menu.put("41", this::findAllPhone);
+        menu.put("42", this::findPhone);
+        menu.put("43", this::createPhone);
+        menu.put("44", this::updatePhone);
+        menu.put("45", this::deletePhone);
 
         // review
-        menu.put("91", this::findAllReview);
-        menu.put("92", this::findReview);
-        menu.put("93", this::createReview);
-        menu.put("94", this::updateReview);
-        menu.put("95", this::deleteReview);
+        menu.put("51", this::findAllReview);
+        menu.put("52", this::findReview);
+        menu.put("53", this::createReview);
+        menu.put("54", this::updateReview);
+        menu.put("55", this::deleteReview);
 
         // room
-        menu.put("101", this::findAllRoom);
-        menu.put("102", this::findRoom);
-        menu.put("103", this::createRoom);
-        menu.put("104", this::updateRoom);
-        menu.put("105", this::deleteRoom);
+        menu.put("61", this::findAllRoom);
+        menu.put("62", this::findRoom);
+        menu.put("63", this::createRoom);
+        menu.put("64", this::updateRoom);
+        menu.put("65", this::deleteRoom);
     }
 
 
-    /*  ----- Booking -----  */
 
-    private Booking getBookingDataByInputs() {
-        System.out.println("Enter booking's id: ");
-        Integer id = input.nextInt();
-        System.out.println("Enter start date: ");
-        String startDate = input.next();
-        System.out.println("Enter end date: ");
-        String endDate = input.next();
-        System.out.println("Enter end guest id: ");
-        Integer guestId = input.nextInt();
-        System.out.println("Enter end room id: ");
-        Integer roomId = input.nextInt();
-        return new Booking(id, startDate, endDate, guestId, roomId);
-    }
-
-    private void findAllBooking() throws SQLException {
-        System.out.println("\nBookings:");
-        System.out.println(bookingController.findAll());
-    }
-
-    private void findBooking() throws SQLException {
-        System.out.println("\nEnter the ID for a booking to find");
-        Integer id = input.nextInt();
-        System.out.println(bookingController.find(id));
-    }
-
-    private void createBooking() throws SQLException {
-        System.out.println("[Creating a booking] \n");
-        Booking coachData = getBookingDataByInputs();
-        bookingController.create(coachData);
-        System.out.println("A new booking was been inserted into the database!");
-    }
-
-    private void updateBooking() throws SQLException {
-        System.out.println("[Updating a booking] \n");
-        Booking newBookingData = getBookingDataByInputs();
-        bookingController.update(newBookingData.getId(), newBookingData);
-        System.out.println("The booking with id " + newBookingData.getId() + " was been updated!");
-    }
-
-    private void deleteBooking() throws SQLException {
-        System.out.println("[Deleting the booking] \n");
-        Integer id = input.nextInt();
-        bookingController.delete(id);
-        System.out.println("Booking with id " + id + " was been deleted!");
-    }
 
     /*  ----- Country -----  */
 
@@ -230,49 +149,7 @@ public class View {
         System.out.println("Country with id " + id + " was been deleted!");
     }
 
-    /*  ----- Email -----  */
 
-    private Email getEmailDataByInputs() {
-        System.out.println("Enter email's id: ");
-        Integer id = input.nextInt();
-        System.out.println("Enter email: ");
-        String email = input.next();
-        System.out.println("Enter email guest id: ");
-        Integer guestId = input.nextInt();
-        return new Email(id, email, guestId);
-    }
-
-    private void findAllEmail() throws SQLException {
-        System.out.println("\nEmails:");
-        System.out.println(emailController.findAll());
-    }
-
-    private void findEmail() throws SQLException {
-        System.out.println("\nEnter the ID for a email to find");
-        Integer id = input.nextInt();
-        System.out.println(emailController.find(id));
-    }
-
-    private void createEmail() throws SQLException {
-        System.out.println("[Creating a email] \n");
-        Email emailData = getEmailDataByInputs();
-        emailController.create(emailData);
-        System.out.println("A new email was been inserted into the database!");
-    }
-
-    private void updateEmail() throws SQLException {
-        System.out.println("[Updating a email] \n");
-        Email newEmailData = getEmailDataByInputs();
-        emailController.update(newEmailData.getId(), newEmailData);
-        System.out.println("The email with id " + newEmailData.getId() + " was been updated!");
-    }
-
-    private void deleteEmail() throws SQLException {
-        System.out.println("[Deleting the email] \n");
-        Integer id = input.nextInt();
-        emailController.delete(id);
-        System.out.println("Email with id " + id + " was been deleted!");
-    }
 
     /*  ----- Guest -----  */
 
@@ -322,16 +199,18 @@ public class View {
 
     /*  ----- Hotel -----  */
 
-    private Hotel getHotelDataByInputs() {
+    private Hotel getHotelDataByInputs() throws SQLException {
         System.out.println("Enter hotel's id: ");
         Integer id = input.nextInt();
-        System.out.println("Enter hotel chain's id: ");
-        Integer hotelChainId = input.nextInt();
-        System.out.println("Enter country id: ");
-        Integer countryId = input.nextInt();
         System.out.println("Enter name: ");
         String name = input.next();
-        return new Hotel(id, hotelChainId, countryId, name);
+        System.out.println("Enter review id: ");
+        Integer review_id = input.nextInt();
+        Review review = reviewController.find(review_id);
+        System.out.println("Enter country id: ");
+        Integer country_id = input.nextInt();
+        Country country = countryController.find(country_id);
+        return new Hotel(id, name, review, country);
     }
 
     private void findAllHotel() throws SQLException {
@@ -366,91 +245,7 @@ public class View {
         System.out.println("Hotel with id " + id + " was been deleted!");
     }
 
-    /*  ----- HotelChain -----  */
 
-    private HotelChain getHotelChainDataByInputs() {
-        System.out.println("Enter hotel chain's id: ");
-        Integer id = input.nextInt();
-        System.out.println("Enter name: ");
-        String name = input.next();
-        return new HotelChain(id, name);
-    }
-
-    private void findAllHotelChain() throws SQLException {
-        System.out.println("\nHotel Chains:");
-        System.out.println(hotelController.findAll());
-    }
-
-    private void findHotelChain() throws SQLException {
-        System.out.println("\nEnter the ID for a hotel chain to find");
-        Integer id = input.nextInt();
-        System.out.println(hotelChainController.find(id));
-    }
-
-    private void createHotelChain() throws SQLException {
-        System.out.println("[Creating a hotel chain] \n");
-        HotelChain hotelChainData = getHotelChainDataByInputs();
-        hotelChainController.create(hotelChainData);
-        System.out.println("A new hotel was been inserted into the database!");
-    }
-
-    private void updateHotelChain() throws SQLException {
-        System.out.println("[Updating a hotel chain] \n");
-        HotelChain newHotelChainData = getHotelChainDataByInputs();
-        hotelChainController.update(newHotelChainData.getId(), newHotelChainData);
-        System.out.println("The hotel chain with id " + newHotelChainData.getId() + " was been updated!");
-    }
-
-    private void deleteHotelChain() throws SQLException {
-        System.out.println("[Deleting the hotel chain] \n");
-        Integer id = input.nextInt();
-        hotelChainController.delete(id);
-        System.out.println("Hotel chain with id " + id + " was been deleted!");
-    }
-
-    /*  ----- Passport -----  */
-
-    private Passport getPassportDataByInputs() {
-        System.out.println("Enter passport's id: ");
-        Integer id = input.nextInt();
-        System.out.println("Enter code: ");
-        Integer code = input.nextInt();
-        System.out.println("Enter guest id: ");
-        Integer guestId = input.nextInt();
-        return new Passport(id, code, guestId);
-    }
-
-    private void findAllPassport() throws SQLException {
-        System.out.println("\nPassports:");
-        System.out.println(passportController.findAll());
-    }
-
-    private void findPassport() throws SQLException {
-        System.out.println("\nEnter the ID for a passport to find");
-        Integer id = input.nextInt();
-        System.out.println(passportController.find(id));
-    }
-
-    private void createPassport() throws SQLException {
-        System.out.println("[Creating a passport] \n");
-        Passport passportData = getPassportDataByInputs();
-        passportController.create(passportData);
-        System.out.println("A new passport was been inserted into the database!");
-    }
-
-    private void updatePassport() throws SQLException {
-        System.out.println("[Updating a passport] \n");
-        Passport newPassportData = getPassportDataByInputs();
-        passportController.update(newPassportData.getId(), newPassportData);
-        System.out.println("The passport with id " + newPassportData.getId() + " was been updated!");
-    }
-
-    private void deletePassport() throws SQLException {
-        System.out.println("[Deleting the passport] \n");
-        Integer id = input.nextInt();
-        passportController.delete(id);
-        System.out.println("Passport with id " + id + " was been deleted!");
-    }
 
     /*  ----- Phone -----  */
 
@@ -459,9 +254,7 @@ public class View {
         Integer id = input.nextInt();
         System.out.println("Enter number: ");
         String number = input.next();
-        System.out.println("Enter guest id: ");
-        Integer guestId = input.nextInt();
-        return new Phone(id, number, guestId);
+        return new Phone(id, number);
     }
 
     private void findAllPhone() throws SQLException {
@@ -505,9 +298,7 @@ public class View {
         String text = input.next();
         System.out.println("Enter date: ");
         String date = input.next();
-        System.out.println("Enter hotel id: ");
-        Integer hotelId = input.nextInt();
-        return new Review(id, text, date, hotelId);
+        return new Review(id, text, date);
     }
 
     private void findAllReview() throws SQLException {
@@ -553,9 +344,7 @@ public class View {
         Integer pricePerNight = input.nextInt();
         System.out.println("Enter status: ");
         Integer status = input.nextInt();
-        System.out.println("Enter hotel id: ");
-        Integer hotelId = input.nextInt();
-        return new Room(id, maxPersons, pricePerNight, status, hotelId);
+        return new Room(id, maxPersons, pricePerNight, status);
     }
 
     private void findAllRoom() throws SQLException {

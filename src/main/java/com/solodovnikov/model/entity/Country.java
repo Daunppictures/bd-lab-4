@@ -1,9 +1,16 @@
 package com.solodovnikov.model.entity;
+import javax.persistence.*;
 
+@Table(name = "country")
+@Entity
 public class Country {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    private String country;
+    @Column(name = "name")
+    private String name;
 
     public Country() {
 
@@ -13,9 +20,9 @@ public class Country {
         this(-1, country);
     }
 
-    public Country(Integer id, String country) {
+    public Country(Integer id, String name) {
         this.id = id;
-        this.country = country;
+        this.name = name;
     }
 
     public Integer getId() {
@@ -26,16 +33,17 @@ public class Country {
         this.id = id;
     }
 
-    public String getCountry() {
-        return country;
+    public String getName() {
+        return name;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setName(String country) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return "\n======================\nid=" + id + ",\ncountry=" + country;
+        return  "\n==========================" +
+                "\nid=" + id + "\nname=" + name;
     }
 }

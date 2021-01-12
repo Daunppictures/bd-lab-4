@@ -1,27 +1,33 @@
 package com.solodovnikov.model.entity;
+import javax.persistence.*;
 
+@Table(name = "review")
+@Entity
 public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "text")
     private String text;
 
+    @Column(name = "date")
     private String date;
 
-    private Integer hotelId;
 
     public Review() {
 
     }
 
-    public Review(String text, String date, Integer hotelId) {
-        this(-1, text, date, hotelId);
+    public Review(String text, String date) {
+        this(-1, text, date);
     }
 
-    public Review(Integer id, String text, String date, Integer hotelId) {
+    public Review(Integer id, String text, String date) {
         this.id = id;
         this.text = text;
         this.date = date;
-        this.hotelId = hotelId;
     }
 
     public Integer getId() {
@@ -48,16 +54,9 @@ public class Review {
         this.date = date;
     }
 
-    public Integer getHotelId() {
-        return hotelId;
-    }
-
-    public void setHotelId(Integer hotelId) {
-        this.hotelId = hotelId;
-    }
-
     @Override
     public String toString() {
-        return "\n======================\nid=" + id + ",\ntext=" + text + ",\ndate=" + date + ",\nhotelId=" + hotelId;
+        return  "\n==========================" +
+                "\nid=" + id + "\ntext=" + text + "\ndate=" + date;
     }
 }

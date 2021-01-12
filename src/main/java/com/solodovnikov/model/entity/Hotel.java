@@ -1,27 +1,38 @@
 package com.solodovnikov.model.entity;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "hotel")
 public class Hotel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
-    private Integer hotelChainId;
-
-    private Integer countryId;
-
+    @Column(name = "name")
     private String name;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "review_id", referencedColumnName = "id", nullable = false)
+    private Review review;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
+    private Country country;
 
     public Hotel() {
 
     }
 
-    public Hotel(Integer hotelChainId, Integer countryId, String name) {
-        this(-1, hotelChainId, countryId, name);
+    public Hotel(String name, Review review, Country country) {
+        this(-1, name, review, country);
     }
 
-    public Hotel(Integer id, Integer hotelChainId, Integer countryId, String name) {
+    public Hotel(Integer id, String name, Review review, Country country) {
         this.id = id;
-        this.hotelChainId = hotelChainId;
-        this.countryId = countryId;
         this.name = name;
+        this.review = review;
+        this.country = country;
     }
 
     public Integer getId() {
@@ -32,20 +43,20 @@ public class Hotel {
         this.id = id;
     }
 
-    public Integer getHotelChainId() {
-        return hotelChainId;
+    public Review getReview() {
+        return review;
     }
 
-    public void setHotelChainId(Integer hotelChainId) {
-        this.hotelChainId = hotelChainId;
+    public void setReview(Review review) {
+        this.review = review;
     }
 
-    public Integer getCountryId() {
-        return countryId;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryId(Integer countryId) {
-        this.countryId = countryId;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public String getName() {
@@ -58,6 +69,7 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "\n======================\nid=" + id + ",\nhotelChainId=" + hotelChainId + ",\ncountryId=" + countryId + ",\nname=" + name;
+        return  "\n==========================" +
+                "\nid=" + id + "\nname=" + name + "\nreviewId=" + review + "\ncountryId=" + country;
     }
 }
